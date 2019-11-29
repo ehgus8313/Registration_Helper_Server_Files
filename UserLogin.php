@@ -4,12 +4,12 @@
  $userID = $_POST["userID"];
  $userPassword = $_POST["userPassword"];
 
- $statement = mysqli_prepare($con, "SELECT userID, userPassword FROM USER2 WHERE userID = ?");
+ $statement = mysqli_prepare($con, "SELECT userID, userPassword, admin FROM USER2 WHERE userID = ?");
  mysqli_stmt_bind_param($statement, "s", $userID);
  mysqli_stmt_execute($statement);
 
  mysqli_stmt_store_result($statement);
- mysqli_stmt_bind_result($statement, $userID, $hash);
+ mysqli_stmt_bind_result($statement, $userID, $hash, $admin);
 
  $response = array();
  //$response["success"] = false;
@@ -19,7 +19,7 @@ while(mysqli_stmt_fetch($statement)){
   if(validate_password($userPassword, $hash)) {
   $reponse["success"] = true;
   $reponse["userID"] = $userID;
-  $reponse["userPassword"] = $userPassword;
+  $reponse["admin"] = $admin;
 	}
 }
 

@@ -7,11 +7,12 @@ $userName = $_POST["userName"];
 $userEmail = $_POST["userEmail"];
 $userGender = $_POST["userGender"];
 $userMajor = $_POST["userMajor"];
+$admin = $_POST["admin"];
 
 include 'pbkdf2.compat.php';
 $hash = create_hash($userPassword);
-$statement = mysqli_prepare($con, "INSERT INTO USER2 VALUES(?, ?, ?, ?, ?, ?)");
-mysqli_stmt_bind_param($statement, "ssssss", $userID, $hash, $userName, $userEmail, $userGender, $userMajor);
+$statement = mysqli_prepare($con, "INSERT INTO USER2 VALUES(?, ?, ?, ?, ?, ?, ?)");
+mysqli_stmt_bind_param($statement, "sssssss", $userID, $hash, $userName, $userEmail, $userGender, $userMajor,$admin);
 mysqli_stmt_execute($statement);
 
 $response = array();
